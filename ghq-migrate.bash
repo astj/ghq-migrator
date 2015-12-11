@@ -30,7 +30,6 @@ function _remote_path_from_url {
 }
 
 if [ $N_OF_REMOTES -eq 1 ]; then
-    echo "one remote!"
     REMOTE_PATH=$(_remote_path_from_url $(cd $TARGET_DIR;git config --get-regexp remote.*.url | cut -d ' ' -f 2))
     echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
     if [ ${GHQ_MIGRATOR_ACTUALLY_RUN:-0} -eq 1 ]; then
