@@ -11,6 +11,10 @@ fi
 echo $TARGET_DIR
 
 N_OF_REMOTES=$(cd $TARGET_DIR;git config --get-regexp remote.*.url | wc -l)
+if [ ${N_OF_REMOTES:-0} -eq 0 ]; then
+    echo 'obtain remote url failed. is this really git repository?'
+    exit 1
+fi
 
 function _remote_path_from_url {
     # git remote url may be
@@ -30,9 +34,10 @@ if [ $N_OF_REMOTES -eq 1 ]; then
     REMOTE_PATH=$(_remote_path_from_url $(cd $TARGET_DIR;git config --get-regexp remote.*.url | cut -d ' ' -f 2))
     echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
     if [ ${GHQ_MIGRATOR_ACTUALLY_RUN:-0} -eq 1 ]; then
-        PARENT_DIR="${GHQ_ROOT}/${REMOTE_PATH}/../"
-        mkdir -p $PARENT_DIR
-        mv $TARGET_DIR $PARENT_DIR
+        NEW_REPO_DIR="${GHQ_ROOT}/${REMOTE_PATH}"
+        NEW_REPO_NAME=${REMOTE_PATH##*/}
+        mkdir -p "${NEW_REPO_DIR%/*}"
+        mv ${TARGET_DIR%/} $NEW_REPO_DIR
     else
         echo 'specify GHQ_MIGRATOR_ACTUALLY_RUN=1 to work actually'
     fi
