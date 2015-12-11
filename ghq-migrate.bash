@@ -2,8 +2,8 @@
 TARGET_DIR=$1
 GHQ_ROOT=$(ghq root)
 
-if [ -z $TARGET_DIR ]; then
-    echo "empty!"
+if ! [ -d $TARGET_DIR ]; then
+    echo "directory needed!"
     exit 1
 fi
 
@@ -21,11 +21,11 @@ function _remote_path_from_url {
     # ssh://git@hoge.host:22/var/git/projects/Project
     # git@github.com:motemen/ghq.git
     # (normally considering only github is enough?)
-    # remove ^ssh://
+    # remove ^.*://
     # => remove ^hoge@ (usually git@ ?)
     #  => replace : => /
     #   => remove .git$
-    REMOTE_PATH=$(echo $1 | sed -e 's!^ssh://!!; s!^.*@!!; s!:!/!; s!\.git$!!;')
+    REMOTE_PATH=$(echo $1 | sed -e 's!^.*://!!; s!^.*@!!; s!:!/!; s!\.git$!!;')
     echo $REMOTE_PATH
 }
 
