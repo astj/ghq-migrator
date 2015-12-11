@@ -33,6 +33,8 @@ if [ $N_OF_REMOTES -eq 1 ]; then
         PARENT_DIR="${GHQ_ROOT}/${REMOTE_PATH}/../"
         mkdir -p $PARENT_DIR
         mv $TARGET_DIR $PARENT_DIR
+    else
+        echo 'specify GHQ_MIGRATOR_ACTUALLY_RUN=1 to work actually'
     fi
 else
     echo "multiple remote detected!!!"
@@ -49,6 +51,8 @@ else
             PARENT_DIR="${GHQ_ROOT}/${REMOTE_PATH}/../"
             mkdir -p $PARENT_DIR
             mv $TARGET_DIR $PARENT_DIR
+        else
+            echo 'specify GHQ_MIGRATOR_ACTUALLY_RUN=1 to work actually'
         fi
     else
         echo "We cannot decide which remote to use..."
