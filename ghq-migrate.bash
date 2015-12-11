@@ -35,7 +35,6 @@ if [ $N_OF_REMOTES -eq 1 ]; then
     echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
     if [ ${GHQ_MIGRATOR_ACTUALLY_RUN:-0} -eq 1 ]; then
         NEW_REPO_DIR="${GHQ_ROOT}/${REMOTE_PATH}"
-        NEW_REPO_NAME=${REMOTE_PATH##*/}
         mkdir -p "${NEW_REPO_DIR%/*}"
         mv ${TARGET_DIR%/} $NEW_REPO_DIR
     else
@@ -54,7 +53,6 @@ else
         echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
         if [ ${GHQ_MIGRATOR_ACTUALLY_RUN:-0} -eq 1 ]; then
             NEW_REPO_DIR="${GHQ_ROOT}/${REMOTE_PATH}"
-            NEW_REPO_NAME=${REMOTE_PATH##*/}
             mkdir -p "${NEW_REPO_DIR%/*}"
             mv ${TARGET_DIR%/} $NEW_REPO_DIR
         else
