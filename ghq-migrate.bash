@@ -39,7 +39,7 @@ else
     echo ''
 
     N_OF_ORIGIN_REMOTES=$(cd $TARGET_DIR;git config --get-regexp remote.origin.url | wc -l)
-    if [ $N_OF_ORIGIN_REMOTES -eq 1 ]; then
+    if [ $N_OF_ORIGIN_REMOTES -eq 1 ] && [ ${GHQ_MIGRATOR_PREFER_ORIGIN:-0} -eq 1 ]; then
         REMOTE_PATH=$(_remote_path_from_url $(cd $TARGET_DIR;git config --get-regexp remote.origin.url | cut -d ' ' -f 2))
         echo "Use origin"
         echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
