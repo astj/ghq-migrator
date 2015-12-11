@@ -53,9 +53,10 @@ else
         echo "Use origin"
         echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
         if [ ${GHQ_MIGRATOR_ACTUALLY_RUN:-0} -eq 1 ]; then
-            PARENT_DIR="${GHQ_ROOT}/${REMOTE_PATH}/../"
-            mkdir -p $PARENT_DIR
-            mv $TARGET_DIR $PARENT_DIR
+            NEW_REPO_DIR="${GHQ_ROOT}/${REMOTE_PATH}"
+            NEW_REPO_NAME=${REMOTE_PATH##*/}
+            mkdir -p "${NEW_REPO_DIR%/*}"
+            mv ${TARGET_DIR%/} $NEW_REPO_DIR
         else
             echo 'specify GHQ_MIGRATOR_ACTUALLY_RUN=1 to work actually'
         fi
