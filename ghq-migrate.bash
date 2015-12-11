@@ -29,9 +29,11 @@ if [ $N_OF_REMOTES -eq 1 ]; then
     echo "one remote!"
     REMOTE_PATH=$(_remote_path_from_url $(cd $TARGET_DIR;git config --get-regexp remote.*.url | cut -d ' ' -f 2))
     echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
-    PARENT_DIR="${GHQ_ROOT}/${REMOTE_PATH}/../"
-    mkdir -p $PARENT_DIR
-    mv $TARGET_DIR $PARENT_DIR
+    if [ ${GHQ_MIGRATOR_ACTUALLY_RUN:-0} -eq 1 ]; then
+        PARENT_DIR="${GHQ_ROOT}/${REMOTE_PATH}/../"
+        mkdir -p $PARENT_DIR
+        mv $TARGET_DIR $PARENT_DIR
+    fi
 else
     echo "multiple remote detected!!!"
     echo '';echo ''
@@ -43,9 +45,11 @@ else
         REMOTE_PATH=$(_remote_path_from_url $(cd $TARGET_DIR;git config --get-regexp remote.origin.url | cut -d ' ' -f 2))
         echo "Use origin"
         echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
-        PARENT_DIR="${GHQ_ROOT}/${REMOTE_PATH}/../"
-        mkdir -p $PARENT_DIR
-        mv $TARGET_DIR $PARENT_DIR
+        if [ ${GHQ_MIGRATOR_ACTUALLY_RUN:-0} -eq 1 ]; then
+            PARENT_DIR="${GHQ_ROOT}/${REMOTE_PATH}/../"
+            mkdir -p $PARENT_DIR
+            mv $TARGET_DIR $PARENT_DIR
+        fi
     else
         echo "We cannot decide which remote to use..."
         exit 1
