@@ -48,7 +48,3 @@ else
         exit 1
     fi
 fi
-
-#echo $N_OF_REMOTES
-
-
