@@ -56,6 +56,7 @@ else
     (cd $TARGET_DIR;git config --get-regexp remote.*.url)
     echo ''
 
+    # `git config --get remote.origin.url` returns only 1 line when remote.origin has 2 or more url ?...
     N_OF_ORIGIN_REMOTES=$(cd $TARGET_DIR;git config --get-regexp remote.origin.url | wc -l)
     if [ $N_OF_ORIGIN_REMOTES -eq 1 ] && [ ${GHQ_MIGRATOR_PREFER_ORIGIN:-0} -eq 1 ]; then
         REMOTE_PATH=$(_remote_path_from_url $(cd $TARGET_DIR;git config --get-regexp remote.origin.url | cut -d ' ' -f 2))
