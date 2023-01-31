@@ -32,6 +32,10 @@ If `GHQ_MIGRATOR_PREFER_ORIGIN=1` is set, ghq-migrator moves the repository acco
 
 *Note* : Even if `GHQ_MIGRATOR_PREFER_ORIGIN=1` is specified, ghq-migrator cannot move repositories which its origin has more than 2 urls, because ghq-migrator cannot decide which url to use.
 
+### `GHQ_MIGRATOR_LINK`
+
+If `GHQ_MIGRATOR_LINK=1` is set, a symbolic link to the destination directory will be created at the place where the repository was moved from.
+
 ### AUTHOR
 
 astj (asato.wakisaka@gmail.com)
