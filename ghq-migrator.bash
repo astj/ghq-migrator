@@ -34,6 +34,11 @@ function _move_repository_directory {
     REMOTE_PATH=$2
 
     echo "move this repository to ${GHQ_ROOT}/${REMOTE_PATH}"
+
+    if [ ${GHQ_MIGRATOR_LINK:-0} -eq 1 ]; then
+        echo "create a link from ${TARGET_DIR%/} to ${GHQ_ROOT}/${REMOTE_PATH}"
+    fi
+
     if [ ${GHQ_MIGRATOR_ACTUALLY_RUN:-0} -eq 1 ]; then
         NEW_REPO_DIR="${GHQ_ROOT}/${REMOTE_PATH}"
         if [ -e $NEW_REPO_DIR ]; then
@@ -42,6 +47,10 @@ function _move_repository_directory {
         fi
         mkdir -p "${NEW_REPO_DIR%/*}"
         mv ${TARGET_DIR%/} $NEW_REPO_DIR
+
+        if [ ${GHQ_MIGRATOR_LINK:-0} -eq 1 ]; then
+            ln -s ${NEW_REPO_DIR} ${TARGET_DIR%/}
+        fi
     else
         echo 'specify GHQ_MIGRATOR_ACTUALLY_RUN=1 to work actually'
     fi
